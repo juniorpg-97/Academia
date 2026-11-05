@@ -30,7 +30,10 @@ function TarjetaCurso({ curso }: { curso: Curso }) {
   return (
     <article className="flex flex-col rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm shadow-slate-900/[0.02] transition hover:-translate-y-0.5 hover:border-emerald-200 hover:shadow-md sm:p-6">
       <div className="mb-5 flex items-start justify-between gap-3">
-        <span className="rounded-lg bg-emerald-50 px-2.5 py-1.5 text-[11px] font-bold tracking-wide text-emerald-800">{curso.codigo}</span>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="rounded-lg bg-emerald-50 px-2.5 py-1.5 text-[11px] font-bold tracking-wide text-emerald-800">{curso.codigo}</span>
+          <span className="text-[11px] text-slate-400">ID #{curso.id}</span>
+        </div>
         <span className="flex items-center gap-1.5 text-xs text-slate-500"><GraduationCap size={15} /> {curso.creditos} créditos</span>
       </div>
       <h2 className="text-lg font-semibold leading-snug text-slate-900">{curso.nombre}</h2>
@@ -38,12 +41,22 @@ function TarjetaCurso({ curso }: { curso: Curso }) {
         {curso.descripcion || 'Este curso aún no tiene una descripción.'}
       </p>
       <div className="mt-4 flex items-center gap-2 text-xs text-slate-500">
-        <UserRound size={15} />
-        {curso.docente ? `${curso.docente.nombre} ${curso.docente.apellido}` : 'Docente por asignar'}
+        {curso.docente?.fotoUrl ? (
+          <img className="size-6 rounded-full object-cover" src={curso.docente.fotoUrl} alt="" />
+        ) : (
+          <UserRound size={15} />
+        )}
+        <span>
+          {curso.docente ? `${curso.docente.nombre} ${curso.docente.apellido} · @${curso.docente.username}` : 'Docente por asignar'}
+        </span>
       </div>
       <BarraCupos curso={curso} />
       <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4 text-[11px] text-slate-400">
-        <span>Actualizado {new Date(curso.updatedAt).toLocaleDateString('es')}</span>
+        <span>
+          Creado {new Date(curso.createdAt).toLocaleDateString('es')}
+          <span className="mx-1.5">·</span>
+          Actualizado {new Date(curso.updatedAt).toLocaleDateString('es')}
+        </span>
         <Link to={`/cursos/${curso.id}`} className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-800 hover:text-emerald-950">
           Ver curso <ArrowRight size={14} />
         </Link>
