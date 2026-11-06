@@ -1,8 +1,8 @@
-import { Search, X } from 'lucide-react'
+import { Search, X } from "lucide-react";
 
 interface BuscadorProps {
-  valor: string
-  onCambiar: (valor: string) => void
+  valor: string;
+  onCambiar: (valor: string) => void;
 }
 
 export function Buscador({ valor, onCambiar }: BuscadorProps) {
@@ -21,12 +21,12 @@ export function Buscador({ valor, onCambiar }: BuscadorProps) {
         <button
           className="rounded-md p-1 hover:bg-slate-100"
           type="button"
-          onClick={() => onCambiar('')}
+          onClick={() => onCambiar("")}
           aria-label="Limpiar búsqueda"
         >
           <X size={15} />
         </button>
       )}
     </label>
-  )
+  );
 }
